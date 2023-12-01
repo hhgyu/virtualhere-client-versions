@@ -1,0 +1,7 @@
+{
+    "regex": "virtualhere-client-\\d+\\.\\d+\\.\\d+-(\\w+)-((x|arm|mips)\\d+)",
+    "groups": {
+        "arch": 2,
+        "platform": 1
+    }
+}
