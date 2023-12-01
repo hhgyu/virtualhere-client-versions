@@ -1,3 +1,9 @@
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory)]
+    [string]
+    $RepositoryFullName
+)
 
 $url = "https://www.virtualhere.com/usb_client_software"
 $html = Invoke-RestMethod $url -MaximumRetryCount 3 -RetryIntervalSec 60 -Headers @{"Cache-Control" = "no-cache" }
@@ -5,7 +11,7 @@ $html = Invoke-RestMethod $url -MaximumRetryCount 3 -RetryIntervalSec 60 -Header
 $url = "https://www.virtualhere.com/sites/default/files/usbclient/SHA1SUM"
 $hashs = Invoke-RestMethod $url -MaximumRetryCount 3 -RetryIntervalSec 60 -Headers @{"Cache-Control" = "no-cache" }
 
-$url = "https://raw.githubusercontent.com/hhgyu/virtualhere-client-versions/main/versions-manifest.json"
+$url = "https://raw.githubusercontent.com/${RepositoryFullName}/main/versions-manifest.json"
 $releases = Invoke-RestMethod $url -MaximumRetryCount 3 -RetryIntervalSec 60 -Headers @{"Cache-Control" = "no-cache" }
 
 $m = "$html" | Select-String -Pattern "Please click on a link below to download\: <strong>Version (?<Version>[.\d]+)</strong>"
