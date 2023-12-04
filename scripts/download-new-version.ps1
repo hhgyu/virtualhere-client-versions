@@ -85,7 +85,7 @@ if ($newVersion -contains $versionInfo.version) {
             $outputArtifactExt = ".tar.xz"
         }
 
-        $outputBinaryName = "virtualhere-client-{0}-{1}-{2}{3}" -f $versionInfo.version, $_.platform, $_.arch, $outfutExt
+        $outputBinaryName = "virtualhere-client{0}" -f $outfutExt
         $outputArtifactName = "virtualhere-client-{0}-{1}-{2}{3}" -f $versionInfo.version, $_.platform, $_.arch, $outputArtifactExt
 
         $workFilePath = Join-Path -Path $workFolderLocation -ChildPath $outputBinaryName
@@ -126,7 +126,7 @@ if ($newVersion -contains $versionInfo.version) {
     }
     Pop-Location
 
-    $EOF = -join (1..15 | ForEach-Object {[char]((48..57)+(65..90)+(97..122) | Get-Random)})
+    $EOF = -join (1..15 | ForEach-Object { [char]((48..57) + (65..90) + (97..122) | Get-Random) })
     "CHANGE_LOG<<$EOF" >> $env:GITHUB_OUTPUT
     $changeLog >> $env:GITHUB_OUTPUT
     "$EOF" >> $env:GITHUB_OUTPUT
