@@ -1,7 +1,10 @@
 Import-Module (Join-Path $PSScriptRoot -ChildPath "html.psm1") -DisableNameChecking
+Import-Module (Join-Path $PSScriptRoot -ChildPath "convert.psm1") -DisableNameChecking
+
+Install-Module -Name HtmlToMarkdown
  
 if (!($IsWindows -Or $IsLinux -Or $IsMacOS)) {
-    Write-Host ("Invalid platform: " + $PSVersionTable.Platfor)
+    Write-Host ("Invalid platform: " + $PSVersionTable.Platform)
     exit 1
 }
 
@@ -27,16 +30,22 @@ function RemoveFiles() {
 
 if ($newVersion -contains $versionInfo.version) {
     $url = "https://www.virtualhere.com/node/955"
-    $changeLogHtml = Invoke-WebRequest $url -MaximumRetryCount 3 -RetryIntervalSec 60 -Headers @{"Cache-Control" = "no-cache" }
-    
-    $m = "$changeLogHtml" | Select-String -Pattern ("\<p\>(?<ChangeLog>" + [regex]::Escape($newVersion) + "\s\(.+?\).+?)\<\/p\>")
+    $changeLogHtml = (Invoke-WebRequest $url -MaximumRetryCount 3 -RetryIntervalSec 60 -Headers @{"Cache-Control" = "no-cache" })
+    $changeLogHtml = Convert-DiacriticCharacters $changeLogHtml.Content
+    $m = "$changeLogHtml" | Select-String -Pattern ("\<p\>(?<ChangeLog>" + [regex]::Escape($newVersion) + "\s\(.+?\).+?)\<\/p\>(?<ChangeLog2>\<ul\>.*?\<\/ul\>)")
+    if (!$m.Matches.Success -Or $m.Matches[0].Groups["ChangeLog"].Value -eq '' -Or $m.Matches[0].Groups["ChangeLog2"].Value -eq '') {
+        $m = "$changeLogHtml" | Select-String -Pattern ("\<p\>(?<ChangeLog>" + [regex]::Escape($newVersion) + "\s\(.+?\).+?)\<\/p\>")
 
-    if (!$m.Matches.Success -Or $m.Matches[0].Groups["ChangeLog"].Value -eq '') {
-        Write-Host "ChangeLog Not Found!"
-        exit 1
+        if (!$m.Matches.Success -Or $m.Matches[0].Groups["ChangeLog"].Value -eq '') {
+            Write-Host "ChangeLog Not Found!"
+            exit 1
+        }
+
+        $changeLog = ConvertFrom-Html -Html $m.Matches[0].Groups["ChangeLog"].Value
+    } else {
+        $changeLog = $m.Matches[0].Groups["ChangeLog"].Value + $m.Matches[0].Groups["ChangeLog2"].Value
+        $changeLog = Convert-HtmlToMarkdown -Html $changeLog -GithubFlavored
     }
-
-    $changeLog = ConvertFrom-Html -Html $m.Matches[0].Groups["ChangeLog"].Value
     Write-Debug "ChangeLog`n${changeLog}"
 
     if (!(Test-Path $artifactFolderLocation)) {

@@ -51,6 +51,11 @@ jobs:
         with:
           submodules: true
 
+      - name: Install from PSGallery
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module HtmlToMarkdown
+
       - id: download_version
         name: Download Version And Create Release Body
         if: env.NEW_VERSION != '' && env.VERSIONS_INFO != ''
