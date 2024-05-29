@@ -30,13 +30,13 @@ jobs:
         run: |
           if("${{ steps.get_new_versions.outputs.NEW_VERSION }}" -eq '') {
             Write-Host "skip!"
-            Exit 1
           }
 
   download_and_publish_release:
     name: Download & Publish Release
     runs-on: ubuntu-latest
     needs: find_new_versions
+    if: ${{ needs.find_new_versions.outputs.new_version_output != '' }}
     steps:
       - name: Check out code
         uses: actions/checkout@v4
