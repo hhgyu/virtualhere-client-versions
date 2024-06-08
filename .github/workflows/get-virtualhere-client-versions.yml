@@ -36,6 +36,8 @@ jobs:
     name: Download & Publish Release
     runs-on: ubuntu-latest
     needs: find_new_versions
+    permissions:
+      contents: write
     if: ${{ needs.find_new_versions.outputs.new_version_output != '' }}
     steps:
       - name: Check out code
