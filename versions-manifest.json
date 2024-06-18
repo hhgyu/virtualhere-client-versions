@@ -1,5 +1,54 @@
 [
   {
+    "version": "5.6.7",
+    "stable": true,
+    "release_url": "https://github.com/hhgyu/virtualhere-client-versions/releases/tag/5.6.7-9567751249",
+    "files": [
+      {
+        "filename": "virtualhere-client-5.6.7-linux-arm32.tar.xz",
+        "arch": "arm32",
+        "platform": "linux",
+        "download_url": "https://github.com/hhgyu/virtualhere-client-versions/releases/download/5.6.7-9567751249/virtualhere-client-5.6.7-linux-arm32.tar.xz"
+      },
+      {
+        "filename": "virtualhere-client-5.6.7-linux-arm64.tar.xz",
+        "arch": "arm64",
+        "platform": "linux",
+        "download_url": "https://github.com/hhgyu/virtualhere-client-versions/releases/download/5.6.7-9567751249/virtualhere-client-5.6.7-linux-arm64.tar.xz"
+      },
+      {
+        "filename": "virtualhere-client-5.6.7-linux-mips32.tar.xz",
+        "arch": "mips32",
+        "platform": "linux",
+        "download_url": "https://github.com/hhgyu/virtualhere-client-versions/releases/download/5.6.7-9567751249/virtualhere-client-5.6.7-linux-mips32.tar.xz"
+      },
+      {
+        "filename": "virtualhere-client-5.6.7-linux-x64.tar.xz",
+        "arch": "x64",
+        "platform": "linux",
+        "download_url": "https://github.com/hhgyu/virtualhere-client-versions/releases/download/5.6.7-9567751249/virtualhere-client-5.6.7-linux-x64.tar.xz"
+      },
+      {
+        "filename": "virtualhere-client-5.6.7-linux-x86.tar.xz",
+        "arch": "x86",
+        "platform": "linux",
+        "download_url": "https://github.com/hhgyu/virtualhere-client-versions/releases/download/5.6.7-9567751249/virtualhere-client-5.6.7-linux-x86.tar.xz"
+      },
+      {
+        "filename": "virtualhere-client-5.6.7-win32-arm64.7z",
+        "arch": "arm64",
+        "platform": "win32",
+        "download_url": "https://github.com/hhgyu/virtualhere-client-versions/releases/download/5.6.7-9567751249/virtualhere-client-5.6.7-win32-arm64.7z"
+      },
+      {
+        "filename": "virtualhere-client-5.6.7-win32-x64.7z",
+        "arch": "x64",
+        "platform": "win32",
+        "download_url": "https://github.com/hhgyu/virtualhere-client-versions/releases/download/5.6.7-9567751249/virtualhere-client-5.6.7-win32-x64.7z"
+      }
+    ]
+  },
+  {
     "version": "5.6.6",
     "stable": true,
     "release_url": "https://github.com/hhgyu/virtualhere-client-versions/releases/tag/5.6.6-9425888492",
