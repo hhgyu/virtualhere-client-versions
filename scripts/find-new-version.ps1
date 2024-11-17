@@ -14,7 +14,7 @@ $hashs = Invoke-RestMethod $url -MaximumRetryCount 3 -RetryIntervalSec 60 -Heade
 $url = "https://raw.githubusercontent.com/${RepositoryFullName}/main/versions-manifest.json"
 $releases = Invoke-RestMethod $url -MaximumRetryCount 3 -RetryIntervalSec 60 -Headers @{"Cache-Control" = "no-cache" }
 
-$m = "$html" | Select-String -Pattern "Please click on a link below to download\: <strong>Version (?<Version>[.\d]+)</strong>"
+$m = "$html" | Select-String -Pattern "Please click on a link below to download\:\s+<strong>Version\s+(?<Version>[.\d]+)\s*</strong>"
 
 $m_hashs = [regex]::new("^(?<SHA1SUM>.+?)\s+(?<FileName>.+?)$", [Text.RegularExpressions.RegexOptions]'Multiline,IgnoreCase').Matches("$hashs")
 
